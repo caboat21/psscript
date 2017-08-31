@@ -1,0 +1,3 @@
+﻿$SearchOUs = 'OU=Users,OU=*root of ad*,DC=*domain*,DC=Local','OU=Users,OU=*root of ad*,DC=*domain*,DC=Local','OU=Users,OU=*root of ad*,DC=*domain*,DC=Local'
+$DisabledOU = 'OU=Disabled,DC=MPC,DC=Local'
+$SearchOUs | ForEach-Object {Search-ADAccount -AccountDisabled -UsersOnly -SearchBase $_ | Select Name,DistinguishedName | ForEach {Move-ADObject -Identity $_.DistinguishedName -TargetPath $DisabledOU}}
